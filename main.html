@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <title>Hundred-Square_Cal</title>
+</head>
+<body>
+    <div id='app'>
+        <label v-for="setnum in tenth_num">
+            <input type="radio"
+             v-model="set_num"
+             v-bind:value="setnum"> {{ setnum }}
+        </label>
+        <p></p>
+        <button class="btn" id="st-btn"v-on:click="generate()" :disabled="isruntimer">start</button>
+
+        <table>
+            <td class="setnumbers" v-for="num in row_nums">
+                {{ num }}
+            </td>
+            <tr v-for="(col_ans,col_num) in answers">
+                <td class="setnumbers">{{col_nums[col_num]}}</td>
+                <td v-for="row_num in 10">
+                    <input type="text" v-model="col_ans.row_ans[row_num-1]" v-bind:style="{color:checked_ans[col_num*10+row_num-1]}"maxlength="4">
+                </td>
+            </tr>
+        </table>
+
+        
+        <button class="btn" id="fin-btn" v-on:click="doScoring()" :disabled="!isruntimer">finish</button>
+        <p>Time:
+            {{ hours }} : {{ minutes | zeroPad }} : {{ seconds | zeroPad }} : {{ mseconds | zeroPad(3) }}
+        </p>
+        <p>Score: {{correct_num}}</p>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
